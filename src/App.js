@@ -11,7 +11,7 @@ import New from "./Pages/New";
 import Show from "./Pages/Show";
 
 // COMPONENTS
-import NavBar from "../../NavBar";
+import NavBar from "../../frontend-budgetapp/NavBar";
 
 function App() {
   return (
