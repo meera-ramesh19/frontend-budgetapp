@@ -11,7 +11,7 @@ import New from "./Pages/New";
 import Show from "./Pages/Show";
 
 // COMPONENTS
-// import NavBar from "../../frontend-budgetapp/NavBar";
+import NavBar from "./Components/NavBar";
 
 function App() {
   return (
@@ -32,5 +32,4 @@ function App() {
 }
 
 export default App;
-
 
