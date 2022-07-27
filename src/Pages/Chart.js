@@ -6,8 +6,6 @@ import Charts from '../Components/Charts';
 
 // const Charts = () => {
 const Chart = () => {
-  
-
   return (
     //navbar tranisitons
     <motion.div
@@ -21,7 +19,7 @@ const Chart = () => {
       // Hover={{ scale: 1.2, transition: { duraion: 0.3 } }}
       // whileTap={{ scale: 0.9 }}
     >
-      <Charts  />
+      <Charts />
     </motion.div>
   );
 };

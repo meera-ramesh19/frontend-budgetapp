@@ -16,15 +16,12 @@ import AccountBalanceWalletSharpIcon from '@mui/icons-material/AccountBalanceWal
 import { Link } from 'react-router-dom';
 // import image from '../assets/budget.jpeg';
 
-const pages = ['transactions', 'new', 'chart'];
+const pages = ['Transactions', 'New', 'Chart'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-
-  // useEffect(() => {}, [total]);
-  // console.log(total)
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -75,6 +72,9 @@ const ResponsiveAppBar = () => {
             
           </Typography> */}
           <Toolbar></Toolbar>
+          <AccountBalanceWalletSharpIcon
+            sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }}
+          />
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size='large'
@@ -119,11 +119,11 @@ const ResponsiveAppBar = () => {
             </Menu>
           </Box>
 
-          <AccountBalanceWalletSharpIcon
+          {/* <AccountBalanceWalletSharpIcon
             sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }}
-          />
+          /> */}
 
-          <Typography
+          {/* <Typography
             variant='h5'
             noWrap
             component='a'
@@ -140,7 +140,7 @@ const ResponsiveAppBar = () => {
             }}
           >
             LOGO
-          </Typography>
+          </Typography> */}
 
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (

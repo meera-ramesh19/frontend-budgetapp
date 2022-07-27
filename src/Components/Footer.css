@@ -4,11 +4,11 @@
   font-size: 15px;
   line-height: 24px;
   color: #737373;
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    text-align: center
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
 }
 .site-footer hr {
   border-top-color: #bbb;

@@ -1,17 +1,12 @@
-import React from "react";
-// import { useContext } from "react";
-// import { ThemeContext } from "../App";
+import React from 'react';
 import { FaTwitter } from 'react-icons/fa';
 import { FaGithub } from 'react-icons/fa';
 import { FaLinkedin } from 'react-icons/fa';
 import './Footer.css';
 
 const Footer = () => {
-  // const { darkMode } = useContext(ThemeContext);
   return (
-    <footer
-    // className='{darkMode ? "footer-dark" : "footer-light"}
-     className='site-footer'>
+    <footer className='site-footer'>
       <div className='container'>
         <hr />
       </div>
