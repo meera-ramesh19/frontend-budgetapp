@@ -9,14 +9,16 @@ const TotalAmount = (props) => {
 
   const balance = transactions.reduce(
     (acc, cur) =>
-      cur.type === 'expense' ? acc - cur.amount : acc + cur.amount,
+      cur.type === 'expense'
+        ? acc - Number(cur.amount)
+        : acc + Number(cur.amount),
     0
   );
 
   return (
     <header className='Header'>
       <div className='nav'>
-        Bank Total Account:
+        <h2> Account Balance:</h2>
         <h2
           style={{
             textalign: 'center',
@@ -27,29 +29,6 @@ const TotalAmount = (props) => {
         >
           {`$${balance}`}
         </h2>
-        {/*      <button className='btn'>
-          <Link className='nav-links' to='/transactions'>
-            All
-          </Link>
-        </button>
-
-        <button className='btn'>
-          <Link className='nav-links' to='/transactions/:id'>
-            Show
-          </Link>
-        </button>
-
-        <button className='btn'>
-          <Link className='nav-links' to='/transactions/new'>
-            New
-          </Link>
-        </button>
-
-        <button className='btn'>
-          <Link className='nav-links' to='/transactions/chart'>
-            Chart
-          </Link>
-        </button>*/}
       </div>
     </header>
   );
