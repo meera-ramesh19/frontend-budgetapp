@@ -1,7 +1,6 @@
-import Charts from '../Components/Charts';
+import ChartInfo from '../Components/ChartInfo';
 
-
-const Chart = () => {
+const ChartDisplay = () => {
   return (
     <div
       style={{
@@ -10,9 +9,9 @@ const Chart = () => {
         height: '100vh',
       }}
     >
-      <Charts />
+      <ChartInfo />
     </div>
   );
 };
 
-export default Chart;
+export default ChartDisplay;
