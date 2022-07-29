@@ -1,65 +1,48 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import './NewTransaction.css';
+import { useNavigate, useParams, Link } from 'react-router-dom';
 import confetti from 'https://cdn.skypack.dev/canvas-confetti@1';
-import {
-  TextField,
-  FormControl,
-  RadioGroup,
-  FormControlLabel,
-  FormLabel,
-  Radio,
-  Grid,
-  Box,
-  Stack,
-  Button,
-  //   Typography,
-  //   FormHelperText,
-} from '@mui/material';
-// import { spacing } from '@mui/system';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-//  import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-// import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import './NewTransaction.css';
 
 const API = process.env.REACT_APP_API_URL;
 
-const NewTransaction = (total, setTotal) => {
-  const [itemName, setItemName] = useState('');
-  const [amount, setAmount] = useState('');
-  const [userDate, setUserDate] = useState(null);
-  const [from, setFrom] = useState('');
-  const [category, setCategory] = useState('');
-  const [type, setType] = useState('');
+const NewTransaction = () => {
+  const [transaction, setTransaction] = useState({
+    itemName: '',
+    amount: '',
+    date: '',
+    from: '',
+    category: '',
+    type: '',
+  });
+
+ 
+  const [type, setType] = useState('Expense');
 
   const navigate = useNavigate();
+  let { index } = useParams();
 
-  const handleRadioChange = (event) => {
+  const onChangeValue = (event) => {
     setType(event.target.value);
   };
 
-  const addTransaction = (newTransaction) => {
-    axios
-      .post(`${API}/transactions`, newTransaction)
-      .then(() => {
-        navigate('/new');
-      })
-      .catch((c) => console.error('catch', c));
+  const handleTextChange = (event) => {
+    console.log(event.target.value);
+    setTransaction({
+      ...transaction,
+      [event.target.id]: event.target.value,
+    });
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
-    const newTransaction = {
-      itemName: itemName,
-      amount: amount,
-      date: userDate,
-      from: from,
-      category: category,
-      type: type,
-    };
-
-    addTransaction(newTransaction);
+    
+    axios
+      .post(`${API}/transactions`, transaction)
+      .then(() => {
+        navigate(`/transactions`);
+      })
+      .catch((c) => console.error('catch', c));
   };
 
   const onClick = useCallback(() => {
@@ -68,157 +51,98 @@ const NewTransaction = (total, setTotal) => {
       spread: 60,
     });
   }, []);
-
   return (
-    <div className='newtransaction'>
+    <div className='add-trans'>
       <form onSubmit={handleSubmit}>
-        <Box sx={{ width: '100%', pt: 8 }}>
-          <Grid
-            container
-            alignItems='center'
-            justify='center'
-            direction='column'
-            rowSpacing={0}
-            columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+        <div>
+          <label htmlFor='itemName'>Item Name: </label>
+          <input
+            id='itemName'
+            type='text'
+            value={transaction.itemName}
+            onChange={handleTextChange}
+            required
+            placeholder='paycheck.'
+          />
+        </div>
+        <div>
+          <label htmlFor='amount'>Amount: </label>
+          <input
+            id='amount'
+            type='number'
+            required
+            value={transaction.amount}
+            onChange={handleTextChange}
+            placeholder='Dollar Amount'
+          />
+        </div>
+        <div>
+          <label htmlFor='date'>Date: </label>
+          <input
+            id='date'
+            type='date'
+            name='date'
+            value={transaction.date}
+            onChange={handleTextChange}
+            required
+            placeholder='date'
+          />
+        </div>
+        <div>
+          <label htmlFor='from'>From: </label>
+          <input
+            id='from'
+            type='text'
+            onChange={handleTextChange}
+            value={transaction.from}
+            required
+            placeholder='work....'
+          />
+        </div>
+        <div>
+          <label htmlFor='category'>Category: </label>
+          <input
+            id='category'
+            type='text'
+            name='category'
+            value={transaction.category}
+            placeholder='food etc...'
+            onChange={handleTextChange}
+            required
+          />
+        </div>
+        <div>
+          <input
+            type='radio'
+            name='type'
+            value='income'
+            id='income'
+            checked={type === 'income'}
+            onChange={onChangeValue}
+          />
+          <label style={{ padding: '0 0.5rem' }}>Income</label>
+          <span></span>
+          <input
+            type='radio'
+            value='expense'
+            id='expense'
+            name='type'
+            checked={type === 'expense'}
+            onChange={onChangeValue}
+          />
+          Expense
+        </div>
+
+        <br />
+        <div className='add-btn'>
+          <input type='submit' onClick={onClick} />
+          <Link
+            style={{ margin: '0 auto', textAlign: 'center' }}
+            to={`/transactions/${index}`}
           >
-            <Grid item xs>
-              <FormControl component='fieldset'>
-                <Box sx={{ width: '250px', pb: 2 }}>
-                  <Stack spacing={4} sx={{ width: '250px' }}>
-                    <TextField
-                      size='small'
-                      id='itemName'
-                      label='itemName'
-                      type='text'
-                      variant='standard'
-                      required
-                      value={itemName}
-                      onChange={(e) => setItemName(e.target.value)}
-                      error={!itemName}
-                      // helperText={!itemName?'Required':'Enter ItemName'}
-                    />
-                  </Stack>
-                  {/* </Stack> */}
-                </Box>
-              </FormControl>
-            </Grid>
-            <Grid item xs={4}>
-              <FormControl component='fieldset'>
-                <Box sx={{ width: '250px', pb: 2, pt: 2 }}>
-                  <Stack spacing={4} sx={{ width: '250px' }}>
-                    <TextField
-                      id='standard-number'
-                      label='Amount'
-                      type='number'
-                      InputLabelProps={{
-                        shrink: true,
-                      }}
-                      variant='standard'
-                      value={amount}
-                      onChange={(e) => setAmount(e.target.value)}
-                      error={!amount}
-                    />
-                  </Stack>
-                </Box>
-              </FormControl>
-            </Grid>
-
-            <Grid item xs>
-              <FormControl component='fieldset'>
-                <Box sx={{ width: '250px', pb: 2, pt: 2 }}>
-                  <Stack spacing={4} sx={{ width: '250px' }}>
-                    <DatePicker
-                      label='Date Picker'
-                      renderInput={(params) => <TextField {...params} />}
-                      value={userDate}
-                      variant='standard'
-                      onChange={(newValue) => {
-                        setUserDate(newValue);
-                      }}
-                    />
-                  </Stack>
-                </Box>
-              </FormControl>
-            </Grid>
-
-            <Grid item xs>
-              <FormControl component='fieldset'>
-                <Box sx={{ width: '250px', pb: 2, pt: 2 }}>
-                  <Stack spacing={4} sx={{ width: '250px' }}>
-                    <TextField
-                      size='small'
-                      id='from'
-                      label='From'
-                      type='text'
-                      variant='standard'
-                      required
-                      value={from}
-                      onChange={(e) => setFrom(e.target.value)}
-                      error={!from}
-                      // helperText={!itemName?'Required':'Enter ItemName'}
-                    />
-                  </Stack>
-                </Box>
-              </FormControl>
-            </Grid>
-
-            <Grid item xs>
-              <FormControl component='fieldset'>
-                <Box sx={{ width: '250px', pb: 2, pt: 2 }}>
-                  <Stack spacing={4} sx={{ width: '250px' }}>
-                    <TextField
-                      size='small'
-                      id='category'
-                      label='Category'
-                      type='text'
-                      variant='standard'
-                      required
-                      value={category}
-                      onChange={(e) => setCategory(e.target.value)}
-                      error={!from}
-                      // helperText={!itemName?'Required':'Enter ItemName'}
-                    />
-                  </Stack>
-                </Box>
-              </FormControl>
-            </Grid>
-            <Grid item xs>
-              <FormControl error>
-                <FormLabel id='income-expense-group-label'>
-                  Income/Expense Type
-                </FormLabel>
-                <RadioGroup
-                  aria-labelledby='demo-controlled-radio-buttons-group'
-                  name='income-expense-group-label'
-                  arai-labelby='income-expense-group-label'
-                  value={type}
-                  onChange={handleRadioChange}
-                  row
-                >
-                  <FormControlLabel
-                    value='income'
-                    control={<Radio size='medium' />}
-                    label='Income'
-                  />
-                  <FormControlLabel
-                    value='expenses'
-                    control={<Radio size='medium' />}
-                    label='Expenses'
-                  />
-                </RadioGroup>
-                {/* <FormHelperText>Invalid Selection</FormHelperText> */}
-              </FormControl>
-            </Grid>
-          </Grid>
-        </Box>
-        <Button
-          onClick={onClick}
-          variant='contained'
-          color='primary'
-          type='submit'
-        >
-          Submit
-        </Button>
+            <button>Cancel </button>
+          </Link>
+        </div>
       </form>
     </div>
   );

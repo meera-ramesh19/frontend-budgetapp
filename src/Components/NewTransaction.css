@@ -1,15 +1,31 @@
-.newtransaction {
-  text-align: center;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
+.add-trans {
+  display: flex;
+  padding: 5rem 0.5rem;
+  justify-content: center;
+
 }
-.input-elements {
-  margin: auto auto;
-  padding: 1rem 0;
+.add-btn{
+    display:flex;
+    justify-content: space-around;
+    margin:0 1rem;
 }
-.radiobtns {
-  padding: 0 1rem;
+
+form > div {
+    padding:1rem 0;
 }
+/* body,
+html {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: table;
+}
+body {
+  display: table-cell;
+  vertical-align: middle;
+}
+form {
+  display: table; /* shrinks to fit conntent *
+  margin: auto;
+} */

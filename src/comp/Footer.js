@@ -19,7 +19,11 @@ const Footer = () => {
           </div>
           <div className='col-md-4 col-sm-6 col-xs-12'>
             <ul className='social-icons'>
-           
+              {/* <li>
+                      <a className='website' href='https://meeraramesh.dev'>
+                     
+                      </a>
+                    </li> */}
               <li>
                 <a className='twitter' href='https://twitter.com/Meerarams'>
                   <FaTwitter color='#007bb6' />
