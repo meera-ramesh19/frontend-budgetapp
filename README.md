@@ -1,10 +1,4 @@
-# Links
 
-[Backend-repo](https://github.com/meera-ramesh19/backend-budgetingapp)
-
-[Frontend deployment](https://trackerluxe-react.netlify.app/)
-
-[Backend deploymnent](https://boiling-reaches-40375.herokuapp.com/transactions)
 
 
 
